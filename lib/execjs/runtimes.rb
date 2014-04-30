@@ -38,11 +38,12 @@ module ExecJS
       :deprecated  => true
     )
 
+	win8? = `systeminfo | findstr /B /C:"OS Version"` =~ /6\.2/
     JScript = ExternalRuntime.new(
       :name        => "JScript",
       :command     => "cscript //E:jscript //Nologo //U",
       :runner_path => ExecJS.root + "/support/jscript_runner.js",
-      :encoding    => 'UTF-16LE' # CScript with //U returns UTF-16LE
+      :encoding    => win8? ? 'UTF-16' : 'UTF-16LE' # CScript with //U returns UTF-16LE
     )
 
 
