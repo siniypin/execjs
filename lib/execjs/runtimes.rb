@@ -38,7 +38,7 @@ module ExecJS
       :deprecated  => true
     )
 
-	win8? = `systeminfo | findstr /B /C:"OS Version"` =~ /6\.2/
+	win8 = (`systeminfo | findstr /B /C:"OS Version"` =~ /6\.2/)
     JScript = ExternalRuntime.new(
       :name        => "JScript",
       :command     => "cscript //E:jscript //Nologo //U",
