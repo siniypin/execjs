@@ -37,15 +37,17 @@ module ExecJS
       :runner_path => ExecJS.root + "/support/spidermonkey_runner.js",
       :deprecated  => true
     )
+	
+	def self.win8?
+	  `systeminfo | findstr /B /C:"OS Version"` =~ /6\.2/
+	end
 
-	win8 = (`systeminfo | findstr /B /C:"OS Version"` =~ /6\.2/)
     JScript = ExternalRuntime.new(
       :name        => "JScript",
       :command     => "cscript //E:jscript //Nologo //U",
       :runner_path => ExecJS.root + "/support/jscript_runner.js",
       :encoding    => win8? ? 'UTF-16' : 'UTF-16LE' # CScript with //U returns UTF-16LE
     )
-
 
     def self.autodetect
       from_environment || best_available ||
